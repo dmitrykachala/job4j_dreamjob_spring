@@ -1,14 +1,15 @@
 package ru.job4j.dreamjob.model;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 
 public class Post {
     private int id;
     private String name;
-    private String description;
-    private Date created;
+    private String description = "default description";
+    private LocalDateTime created = LocalDateTime.now();
 
     public Post() {
     }
@@ -16,15 +17,12 @@ public class Post {
     public Post(int id, String name) {
         this.id = id;
         this.name = name;
-        this.description = "default description";
-        this.created = new Date();
     }
 
     public Post(int id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.created = new Date();
     }
 
     public int getId() {
@@ -68,11 +66,11 @@ public class Post {
         return Objects.hash(id);
     }
 
-    public Date getCreated() {
+    public LocalDateTime getCreated() {
         return created;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(LocalDateTime created) {
         this.created = created;
     }
 }
