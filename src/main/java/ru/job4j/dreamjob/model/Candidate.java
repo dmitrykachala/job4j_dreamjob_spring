@@ -6,7 +6,7 @@ import java.util.Objects;
 public class Candidate {
     private int id;
     private String name;
-    private String desc = "default desc";
+    private String description;
     private LocalDateTime created = LocalDateTime.now();
 
     public Candidate(int id, String name) {
@@ -14,10 +14,10 @@ public class Candidate {
         this.name = name;
     }
 
-    public Candidate(int id, String name, String desc) {
+    public Candidate(int id, String name, String description) {
         this.id = id;
         this.name = name;
-        this.desc = desc;
+        this.description = description;
     }
 
     public int getId() {
@@ -36,12 +36,12 @@ public class Candidate {
         this.name = name;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public LocalDateTime getCreated() {
@@ -54,7 +54,7 @@ public class Candidate {
 
     @Override
     public String toString() {
-        return "Candidate{" + "id=" + id + ", name='" + name + ", desc=" + desc + '\''
+        return "Candidate{" + "id=" + id + ", name='" + name + ", description=" + description + '\''
                + ", created=" + created + '}';
     }
 
