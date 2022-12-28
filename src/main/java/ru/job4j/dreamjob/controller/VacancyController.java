@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import ru.job4j.dreamjob.store.VacancyRepository;
 
 @Controller
-public class PostController {
+public class VacancyController {
     private final VacancyRepository vacancyRepository = VacancyRepository.instOf();
 
     @GetMapping("/vacancies")
