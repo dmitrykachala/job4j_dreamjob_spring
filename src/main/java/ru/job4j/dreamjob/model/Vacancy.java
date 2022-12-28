@@ -1,27 +1,25 @@
 package ru.job4j.dreamjob.model;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Objects;
 
-public class Post {
+public class Vacancy {
     private int id;
-    private String name;
+    private String title;
     private String description;
-    private LocalDateTime created = LocalDateTime.now();
+    private LocalDateTime creationDate = LocalDateTime.now();
 
-    public Post() {
+    public Vacancy() {
     }
 
-    public Post(int id, String name) {
+    public Vacancy(int id, String title) {
         this.id = id;
-        this.name = name;
+        this.title = title;
     }
 
-    public Post(int id, String name, String description) {
+    public Vacancy(int id, String title, String description) {
         this.id = id;
-        this.name = name;
+        this.title = title;
         this.description = description;
     }
 
@@ -33,12 +31,12 @@ public class Post {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {
@@ -57,8 +55,8 @@ public class Post {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Post post = (Post) o;
-        return id == post.id;
+        Vacancy vacancy = (Vacancy) o;
+        return id == vacancy.id;
     }
 
     @Override
@@ -66,11 +64,11 @@ public class Post {
         return Objects.hash(id);
     }
 
-    public LocalDateTime getCreated() {
-        return created;
+    public LocalDateTime getCreationDate() {
+        return creationDate;
     }
 
-    public void setCreated(LocalDateTime created) {
-        this.created = created;
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
     }
 }

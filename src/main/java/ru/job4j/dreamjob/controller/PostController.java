@@ -3,25 +3,20 @@ package ru.job4j.dreamjob.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import ru.job4j.dreamjob.model.Post;
-import ru.job4j.dreamjob.store.PostStore;
-
-import java.time.LocalDateTime;
+import ru.job4j.dreamjob.store.VacancyRepository;
 
 @Controller
 public class PostController {
-    private final PostStore postStore = PostStore.instOf();
+    private final VacancyRepository vacancyRepository = VacancyRepository.instOf();
 
-    @GetMapping("/posts")
+    @GetMapping("/vacancies")
     public String posts(Model model) {
-        model.addAttribute("posts", postStore.findAll());
-        return "posts";
+        model.addAttribute("vacancies", vacancyRepository.findAll());
+        return "vacancies/list";
     }
 
-    @GetMapping("/formAddPost")
-    public String addPost(Model model) {
-        model.addAttribute("post",
-                new Post(0, "Заполните название", "Заполните описание"));
-        return "addPost";
+    @GetMapping("/create")
+    public String getCreationPage() {
+        return "vacancies/create";
     }
 }
