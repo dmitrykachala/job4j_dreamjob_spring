@@ -25,4 +25,8 @@ public class VacancyRepository {
     public Collection<Vacancy> findAll() {
         return vacancies.values();
     }
+
+    public void save(Vacancy vacancy) {
+        vacancies.put((5 + (int) (Math.random() * 10000)), vacancy);
+    }
 }
