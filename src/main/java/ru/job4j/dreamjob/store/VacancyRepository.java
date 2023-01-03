@@ -5,11 +5,15 @@ import ru.job4j.dreamjob.model.Vacancy;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class VacancyRepository {
     private static final VacancyRepository INST = new VacancyRepository();
 
     private final Map<Integer, Vacancy> vacancies = new ConcurrentHashMap<>();
+
+    private final AtomicInteger atomicId = new AtomicInteger(5);
+    private final AtomicInteger atomicVacancyId = new AtomicInteger(5);
 
     private VacancyRepository() {
         vacancies.put(1, new Vacancy(1, "Junior Java Job", "origin"));
@@ -27,6 +31,8 @@ public class VacancyRepository {
     }
 
     public void save(Vacancy vacancy) {
-        vacancies.put((5 + (int) (Math.random() * 10000)), vacancy);
+        vacancy.setId(atomicVacancyId.incrementAndGet());
+        vacancies.put(atomicId.incrementAndGet(), vacancy);
     }
+
 }
