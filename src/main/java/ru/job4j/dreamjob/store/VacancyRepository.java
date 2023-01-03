@@ -12,7 +12,6 @@ public class VacancyRepository {
 
     private final Map<Integer, Vacancy> vacancies = new ConcurrentHashMap<>();
 
-    private final AtomicInteger atomicId = new AtomicInteger(5);
     private final AtomicInteger atomicVacancyId = new AtomicInteger(5);
 
     private VacancyRepository() {
@@ -32,7 +31,7 @@ public class VacancyRepository {
 
     public void save(Vacancy vacancy) {
         vacancy.setId(atomicVacancyId.incrementAndGet());
-        vacancies.put(atomicId.incrementAndGet(), vacancy);
+        vacancies.put(vacancy.getId(), vacancy);
     }
 
 }
