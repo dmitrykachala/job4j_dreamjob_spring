@@ -4,6 +4,7 @@ import ru.job4j.dreamjob.model.Vacancy;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -34,4 +35,28 @@ public class VacancyRepository {
         vacancies.put(vacancy.getId(), vacancy);
     }
 
+    public Optional<Vacancy> findById(int id) {
+        return vacancies.values().stream()
+                .filter(v -> v.getId() == id).findFirst();
+    }
+
+    public boolean update(Vacancy vacancy) {
+        if (vacancies.containsValue(vacancy)) {
+
+            vacancies.replace(vacancy.getId(), vacancy);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean deleteById(int id) {
+        if (vacancies.containsKey(id)) {
+
+            vacancies.remove(id);
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
