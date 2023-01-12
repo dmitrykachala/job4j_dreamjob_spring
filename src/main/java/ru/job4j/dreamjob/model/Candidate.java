@@ -9,6 +9,9 @@ public class Candidate {
     private String description;
     private LocalDateTime creationDate = LocalDateTime.now();
 
+    public Candidate() {
+    }
+
     public Candidate(int id, String title) {
         this.id = id;
         this.title = title;
