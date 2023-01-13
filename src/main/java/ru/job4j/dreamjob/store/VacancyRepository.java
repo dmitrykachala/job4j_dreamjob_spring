@@ -30,33 +30,22 @@ public class VacancyRepository {
         return vacancies.values();
     }
 
+    public Optional<Vacancy> findById(int id) {
+        return Optional.ofNullable(vacancies.get(id));
+    }
+
     public void save(Vacancy vacancy) {
         vacancy.setId(atomicVacancyId.incrementAndGet());
         vacancies.put(vacancy.getId(), vacancy);
     }
 
-    public Optional<Vacancy> findById(int id) {
-        return vacancies.values().stream()
-                .filter(v -> v.getId() == id).findFirst();
-    }
-
     public boolean update(Vacancy vacancy) {
-        if (vacancies.containsValue(vacancy)) {
-
-            vacancies.replace(vacancy.getId(), vacancy);
-            return true;
-        } else {
-            return false;
-        }
+        return vacancies.replace(vacancy.getId(),
+                vacancies.get(vacancy.getId()), vacancy);
     }
 
     public boolean deleteById(int id) {
-        if (vacancies.containsKey(id)) {
-
-            vacancies.remove(id);
-            return true;
-        } else {
-            return false;
-        }
+        return vacancies.remove(id, vacancies.get(id));
     }
+
 }

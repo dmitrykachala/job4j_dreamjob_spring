@@ -35,27 +35,15 @@ public class CandidateStore {
     }
 
     public Optional<Candidate> findById(int id) {
-        return candidates.values().stream()
-                .filter(v -> v.getId() == id).findFirst();
+        return Optional.ofNullable(candidates.get(id));
     }
 
     public boolean update(Candidate candidate) {
-        if (candidates.containsValue(candidate)) {
-
-            candidates.replace(candidate.getId(), candidate);
-            return true;
-        } else {
-            return false;
-        }
+        return candidates.replace(candidate.getId(),
+                candidates.get(candidate.getId()), candidate);
     }
 
     public boolean deleteById(int id) {
-        if (candidates.containsKey(id)) {
-
-            candidates.remove(id);
-            return true;
-        } else {
-            return false;
-        }
+        return candidates.remove(id, candidates.get(id));
     }
 }
