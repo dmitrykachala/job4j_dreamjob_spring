@@ -1,5 +1,6 @@
 package ru.job4j.dreamjob.store;
 
+import org.springframework.stereotype.Repository;
 import ru.job4j.dreamjob.model.Candidate;
 
 import java.util.Collection;
@@ -8,8 +9,8 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class MemoryCandidateStore {
-    private static final MemoryCandidateStore INST = new MemoryCandidateStore();
+@Repository
+public class MemoryCandidateStore implements CandidateStore {
 
     private final Map<Integer, Candidate> candidates = new ConcurrentHashMap<>();
     private final AtomicInteger atomicCandidateId = new AtomicInteger(5);
@@ -19,10 +20,6 @@ public class MemoryCandidateStore {
         candidates.put(2, new Candidate(2, "Eneken Skywalker", "toddler"));
         candidates.put(3, new Candidate(3, "Obi Van Kenobi", "wolf"));
         candidates.put(4, new Candidate(4, "Yoda"));
-    }
-
-    public static MemoryCandidateStore instOf() {
-        return INST;
     }
 
     public Collection<Candidate> findAll() {

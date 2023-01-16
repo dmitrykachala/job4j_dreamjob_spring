@@ -1,18 +1,19 @@
 package ru.job4j.dreamjob.service;
 
+import org.springframework.stereotype.Service;
 import ru.job4j.dreamjob.model.Candidate;
-import ru.job4j.dreamjob.store.MemoryCandidateStore;
+import ru.job4j.dreamjob.store.CandidateStore;
 
 import java.util.Collection;
 import java.util.Optional;
 
+@Service
 public class SimpleCandidateService implements CandidateService {
-    private static final SimpleCandidateService INSTANCE = new SimpleCandidateService();
 
-    private final MemoryCandidateStore candidateStore = MemoryCandidateStore.instOf();
+    private final CandidateStore candidateStore;
 
-    public static SimpleCandidateService getInstance() {
-        return INSTANCE;
+    public SimpleCandidateService(CandidateStore candidateStore) {
+        this.candidateStore = candidateStore;
     }
 
     @Override

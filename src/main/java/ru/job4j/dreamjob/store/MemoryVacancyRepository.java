@@ -1,5 +1,6 @@
 package ru.job4j.dreamjob.store;
 
+import org.springframework.stereotype.Repository;
 import ru.job4j.dreamjob.model.Vacancy;
 
 import java.util.Collection;
@@ -8,8 +9,8 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class MemoryVacancyRepository {
-    private static final MemoryVacancyRepository INST = new MemoryVacancyRepository();
+@Repository
+public class MemoryVacancyRepository implements VacancyRepository {
 
     private final Map<Integer, Vacancy> vacancies = new ConcurrentHashMap<>();
 
@@ -22,10 +23,6 @@ public class MemoryVacancyRepository {
         vacancies.put(4, new Vacancy(4, "Junior Java Job"));
     }
 
-    public static MemoryVacancyRepository instOf() {
-        return INST;
-    }
-
     public Collection<Vacancy> findAll() {
         return vacancies.values();
     }
@@ -33,11 +30,6 @@ public class MemoryVacancyRepository {
     public Optional<Vacancy> findById(int id) {
         return Optional.ofNullable(vacancies.get(id));
     }
-
-/*    public void save(Vacancy vacancy) {
-        vacancy.setId(atomicVacancyId.incrementAndGet());
-        vacancies.put(vacancy.getId(), vacancy);
-    }*/
 
     public Vacancy save(Vacancy vacancy) {
         vacancy.setId(atomicVacancyId.incrementAndGet());

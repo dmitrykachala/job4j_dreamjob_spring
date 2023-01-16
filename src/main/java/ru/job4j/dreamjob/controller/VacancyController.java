@@ -2,17 +2,17 @@ package ru.job4j.dreamjob.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.job4j.dreamjob.model.Vacancy;
-import ru.job4j.dreamjob.service.SimpleVacancyService;
 import ru.job4j.dreamjob.service.VacancyService;
 
 @Controller
 public class VacancyController {
-    private final VacancyService vacancyService = SimpleVacancyService.getInstance();
+    private final VacancyService vacancyService;
+
+    public VacancyController(VacancyService vacancyService) {
+        this.vacancyService = vacancyService;
+    }
 
     @GetMapping("/vacancies")
     public String posts(Model model) {
