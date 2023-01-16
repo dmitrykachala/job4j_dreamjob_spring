@@ -8,21 +8,21 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class VacancyRepository {
-    private static final VacancyRepository INST = new VacancyRepository();
+public class MemoryVacancyRepository {
+    private static final MemoryVacancyRepository INST = new MemoryVacancyRepository();
 
     private final Map<Integer, Vacancy> vacancies = new ConcurrentHashMap<>();
 
     private final AtomicInteger atomicVacancyId = new AtomicInteger(5);
 
-    private VacancyRepository() {
+    private MemoryVacancyRepository() {
         vacancies.put(1, new Vacancy(1, "Junior Java Job", "origin"));
         vacancies.put(2, new Vacancy(2, "Middle Java Job", "current"));
         vacancies.put(3, new Vacancy(3, "Senior Java Job", "future"));
         vacancies.put(4, new Vacancy(4, "Junior Java Job"));
     }
 
-    public static VacancyRepository instOf() {
+    public static MemoryVacancyRepository instOf() {
         return INST;
     }
 
@@ -34,9 +34,14 @@ public class VacancyRepository {
         return Optional.ofNullable(vacancies.get(id));
     }
 
-    public void save(Vacancy vacancy) {
+/*    public void save(Vacancy vacancy) {
         vacancy.setId(atomicVacancyId.incrementAndGet());
         vacancies.put(vacancy.getId(), vacancy);
+    }*/
+
+    public Vacancy save(Vacancy vacancy) {
+        vacancy.setId(atomicVacancyId.incrementAndGet());
+        return vacancies.put(vacancy.getId(), vacancy);
     }
 
     public boolean update(Vacancy vacancy) {

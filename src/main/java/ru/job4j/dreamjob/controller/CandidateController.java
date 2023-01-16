@@ -7,15 +7,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.dreamjob.model.Candidate;
-import ru.job4j.dreamjob.store.CandidateStore;
+import ru.job4j.dreamjob.service.CandidateService;
+import ru.job4j.dreamjob.service.SimpleCandidateService;
 
 @Controller
 public class CandidateController {
-    private final CandidateStore candidateStore = CandidateStore.instOf();
+    private final CandidateService candidateService = SimpleCandidateService.getInstance();
 
     @GetMapping("/candidates")
     public String candidates(Model model) {
-        model.addAttribute("candidates", candidateStore.findAll());
+        model.addAttribute("candidates", candidateService.findAll());
         return "candidates/list";
     }
 
@@ -26,13 +27,13 @@ public class CandidateController {
 
     @PostMapping("/createC")
     public String create(@ModelAttribute Candidate candidate) {
-        candidateStore.save(candidate);
+        candidateService.save(candidate);
         return "redirect:/candidates";
     }
 
     @GetMapping("/candidates/{id}")
     public String getById(Model model, @PathVariable int id) {
-        var candidateOptional = candidateStore.findById(id);
+        var candidateOptional = candidateService.findById(id);
         if (candidateOptional.isEmpty()) {
             model.addAttribute("message", "Кандидат с указанным идентификатором не найден");
             return "errors/404";
@@ -43,7 +44,7 @@ public class CandidateController {
 
     @PostMapping("/candidates/update")
     public String update(@ModelAttribute Candidate candidate, Model model) {
-        var isUpdated = candidateStore.update(candidate);
+        var isUpdated = candidateService.update(candidate);
         if (!isUpdated) {
             model.addAttribute("message", "Кандидат с указанным идентификатором не найден");
             return "errors/404";
@@ -53,7 +54,7 @@ public class CandidateController {
 
     @GetMapping("/candidates/delete/{id}")
     public String delete(Model model, @PathVariable int id) {
-        var isDeleted = candidateStore.deleteById(id);
+        var isDeleted = candidateService.deleteById(id);
         if (!isDeleted) {
             model.addAttribute("message", "Кандидат с указанным идентификатором не найден");
             return "errors/404";
