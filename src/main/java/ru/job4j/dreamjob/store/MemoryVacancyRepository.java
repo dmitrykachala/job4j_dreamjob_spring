@@ -19,9 +19,9 @@ public class MemoryVacancyRepository implements VacancyRepository {
     private final AtomicInteger atomicVacancyId = new AtomicInteger(5);
 
     private MemoryVacancyRepository() {
-        vacancies.put(1, new Vacancy(1, "Junior Java Job", "origin"));
-        vacancies.put(2, new Vacancy(2, "Middle Java Job", "current"));
-        vacancies.put(3, new Vacancy(3, "Senior Java Job", "future"));
+        vacancies.put(1, new Vacancy(1, "Junior Java Job", "origin", true));
+        vacancies.put(2, new Vacancy(2, "Middle Java Job", "current", true));
+        vacancies.put(3, new Vacancy(3, "Senior Java Job", "future", true));
         vacancies.put(4, new Vacancy(4, "Junior Java Job"));
     }
 
@@ -39,8 +39,10 @@ public class MemoryVacancyRepository implements VacancyRepository {
     }
 
     public boolean update(Vacancy vacancy) {
-        return vacancies.replace(vacancy.getId(),
-                vacancies.get(vacancy.getId()), vacancy);
+        return vacancies.computeIfPresent(vacancy.getId(), (id, oldVacancy) -> {
+            return new Vacancy(oldVacancy.getId(), vacancy.getTitle(),
+                    vacancy.getDescription(), vacancy.getVisible());
+        }) != null;
     }
 
     public boolean deleteById(int id) {
