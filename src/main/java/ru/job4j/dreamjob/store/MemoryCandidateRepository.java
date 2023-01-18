@@ -12,15 +12,15 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @ThreadSafe
 @Repository
-public class MemoryCandidateStore implements CandidateStore {
+public class MemoryCandidateRepository implements CandidateRepository {
 
     private final Map<Integer, Candidate> candidates = new ConcurrentHashMap<>();
     private final AtomicInteger atomicCandidateId = new AtomicInteger(5);
 
-    private MemoryCandidateStore() {
-        candidates.put(1, new Candidate(1, "Jabba Hut", "worm"));
-        candidates.put(2, new Candidate(2, "Eneken Skywalker", "toddler"));
-        candidates.put(3, new Candidate(3, "Obi Van Kenobi", "wolf"));
+    private MemoryCandidateRepository() {
+        candidates.put(1, new Candidate(1, "Jabba Hut", "worm", 2));
+        candidates.put(2, new Candidate(2, "Eneken Skywalker", "toddler", 3));
+        candidates.put(3, new Candidate(3, "Obi Van Kenobi", "wolf", 1));
         candidates.put(4, new Candidate(4, "Yoda"));
     }
 
@@ -38,8 +38,13 @@ public class MemoryCandidateStore implements CandidateStore {
     }
 
     public boolean update(Candidate candidate) {
-        return candidates.replace(candidate.getId(),
-                candidates.get(candidate.getId()), candidate);
+/*        return candidates.replace(candidate.getId(),
+                candidates.get(candidate.getId()), candidate);*/
+        return candidates.computeIfPresent(candidate.getId(), (id, oldCandidate) -> {
+            return new Candidate(
+                    oldCandidate.getId(), candidate.getTitle(), candidate.getDescription(),
+                    candidate.getCityId());
+        }) != null;
     }
 
     public boolean deleteById(int id) {

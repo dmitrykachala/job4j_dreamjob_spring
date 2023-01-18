@@ -3,7 +3,7 @@ package ru.job4j.dreamjob.service;
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Service;
 import ru.job4j.dreamjob.model.Candidate;
-import ru.job4j.dreamjob.store.CandidateStore;
+import ru.job4j.dreamjob.store.CandidateRepository;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -12,34 +12,34 @@ import java.util.Optional;
 @Service
 public class SimpleCandidateService implements CandidateService {
 
-    private final CandidateStore candidateStore;
+    private final CandidateRepository candidateRepository;
 
-    public SimpleCandidateService(CandidateStore candidateStore) {
-        this.candidateStore = candidateStore;
+    public SimpleCandidateService(CandidateRepository candidateRepository) {
+        this.candidateRepository = candidateRepository;
     }
 
     @Override
     public Candidate save(Candidate candidate) {
-        return candidateStore.save(candidate);
+        return candidateRepository.save(candidate);
     }
 
     @Override
     public boolean deleteById(int id) {
-        return candidateStore.deleteById(id);
+        return candidateRepository.deleteById(id);
     }
 
     @Override
     public boolean update(Candidate candidate) {
-        return candidateStore.update(candidate);
+        return candidateRepository.update(candidate);
     }
 
     @Override
     public Optional<Candidate> findById(int id) {
-        return candidateStore.findById(id);
+        return candidateRepository.findById(id);
     }
 
     @Override
     public Collection<Candidate> findAll() {
-        return candidateStore.findAll();
+        return candidateRepository.findAll();
     }
 }
