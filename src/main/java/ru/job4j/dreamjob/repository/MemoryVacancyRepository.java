@@ -1,9 +1,10 @@
-package ru.job4j.dreamjob.store;
+package ru.job4j.dreamjob.repository;
 
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Repository;
 import ru.job4j.dreamjob.model.Vacancy;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Optional;
@@ -19,10 +20,12 @@ public class MemoryVacancyRepository implements VacancyRepository {
     private final AtomicInteger atomicVacancyId = new AtomicInteger(5);
 
     private MemoryVacancyRepository() {
-        vacancies.put(1, new Vacancy(1, "Junior Java Job", "origin", true, 1));
-        vacancies.put(2, new Vacancy(2, "Middle Java Job", "current", true, 1));
-        vacancies.put(3, new Vacancy(3, "Senior Java Job", "future", true, 1));
-        vacancies.put(4, new Vacancy(4, "Junior Java Job"));
+        save(new Vacancy(0, "Intern Java Developer", "Стажер Java разработчик", true, 1, 0));
+        save(new Vacancy(0, "Junior Java Developer", "Младший Java разработчик", true, 1, 0));
+        save(new Vacancy(0, "Junior+ Java Developer", "Java разработчик", true, 2, 0));
+        save(new Vacancy(0, "Middle Java Developer", "Старший Java разработчик", true, 2, 0));
+        save(new Vacancy(0, "Middle+ Java Developer", "Ведущий Java разработчик", true, 2, 0));
+        save(new Vacancy(0, "Senior Java Developer", "Главный Java разработчик", true, 3, 0));
     }
 
     public Collection<Vacancy> findAll() {
@@ -42,7 +45,7 @@ public class MemoryVacancyRepository implements VacancyRepository {
         return vacancies.computeIfPresent(vacancy.getId(), (id, oldVacancy) -> {
             return new Vacancy(
                     oldVacancy.getId(), vacancy.getTitle(), vacancy.getDescription(),
-                    vacancy.getVisible(), vacancy.getCityId()
+                    vacancy.getVisible(), vacancy.getCityId(), vacancy.getFileId()
             );
         }) != null;
     }

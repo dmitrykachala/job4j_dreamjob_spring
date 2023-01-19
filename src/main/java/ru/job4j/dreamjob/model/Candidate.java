@@ -9,6 +9,7 @@ public class Candidate {
     private String description;
     private LocalDateTime creationDate = LocalDateTime.now();
     private int cityId;
+    private int fileId;
 
     public Candidate() {
     }
@@ -18,11 +19,21 @@ public class Candidate {
         this.title = title;
     }
 
-    public Candidate(int id, String title, String description, int cityId) {
+    public Candidate(int id, String title, String description,
+                     int cityId, int fileId) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.cityId = cityId;
+        this.fileId = fileId;
+    }
+
+    public int getFileId() {
+        return fileId;
+    }
+
+    public void setFileId(int fileId) {
+        this.fileId = fileId;
     }
 
     public int getCityId() {
