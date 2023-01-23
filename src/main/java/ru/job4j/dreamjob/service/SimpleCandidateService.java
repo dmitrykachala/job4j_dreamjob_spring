@@ -33,10 +33,6 @@ public class SimpleCandidateService implements CandidateService {
         candidate.setFileId(file.getId());
     }
 
-/*    @Override
-    public boolean deleteById(int id) {
-        return candidateRepository.deleteById(id);
-    }*/
     @Override
     public boolean deleteById(int id) {
         var fileOptional = findById(id);
@@ -48,10 +44,6 @@ public class SimpleCandidateService implements CandidateService {
         return isDeleted;
 }
 
-/*    @Override
-    public boolean update(Candidate candidate) {
-        return candidateRepository.update(candidate);
-    }*/
     @Override
     public boolean update(Candidate candidate, FileDto image) {
         var isNewFileEmpty = image.getContent().length == 0;
