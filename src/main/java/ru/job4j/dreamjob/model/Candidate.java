@@ -38,6 +38,16 @@ public class Candidate {
         this.fileId = fileId;
     }
 
+    public Candidate(int id, String title, String description,
+                     LocalDateTime creationDate, int cityId, int fileId) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.creationDate = creationDate;
+        this.cityId = cityId;
+        this.fileId = fileId;
+    }
+
     public int getFileId() {
         return fileId;
     }
