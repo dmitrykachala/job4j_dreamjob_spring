@@ -79,12 +79,11 @@ public class User {
             return false;
         }
         User user = (User) o;
-        return id == user.id && email.equals(user.email) && name.equals(user.name)
-               && password.equals(user.password);
+        return id == user.id && email.equals(user.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, email, name, password);
+        return Objects.hash(id, email);
     }
 }
