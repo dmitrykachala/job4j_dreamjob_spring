@@ -9,9 +9,6 @@ import ru.job4j.dreamjob.dto.FileDto;
 import ru.job4j.dreamjob.model.Candidate;
 import ru.job4j.dreamjob.service.CandidateService;
 import ru.job4j.dreamjob.service.CityService;
-import ru.job4j.dreamjob.utils.UserSession;
-
-import javax.servlet.http.HttpSession;
 
 @ThreadSafe
 @Controller
@@ -25,15 +22,13 @@ public class CandidateController {
     }
 
     @GetMapping("/candidates")
-    public String candidates(Model model, HttpSession session) {
-        UserSession.of(model, session);
+    public String candidates(Model model) {
         model.addAttribute("candidates", candidateService.findAll());
         return "candidates/list";
     }
 
     @GetMapping("/createC")
-    public String getCreationPage(Model model, HttpSession session) {
-        UserSession.of(model, session);
+    public String getCreationPage(Model model) {
         model.addAttribute("cities", cityService.findAll());
         return "candidates/create";
     }
@@ -52,8 +47,7 @@ public class CandidateController {
     }
 
     @GetMapping("/candidates/{id}")
-    public String getById(Model model, @PathVariable int id, HttpSession session) {
-        UserSession.of(model, session);
+    public String getById(Model model, @PathVariable int id) {
         var candidateOptional = candidateService.findById(id);
         if (candidateOptional.isEmpty()) {
             model.addAttribute("message", "Кандидат с указанным идентификатором не найден");
@@ -82,8 +76,7 @@ public class CandidateController {
     }
 
     @GetMapping("/candidates/delete/{id}")
-    public String delete(Model model, @PathVariable int id, HttpSession session) {
-        UserSession.of(model, session);
+    public String delete(Model model, @PathVariable int id) {
         var isDeleted = candidateService.deleteById(id);
         if (!isDeleted) {
             model.addAttribute("message", "Кандидат с указанным идентификатором не найден");
