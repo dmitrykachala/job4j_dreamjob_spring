@@ -2,12 +2,9 @@ package ru.job4j.dreamjob.service;
 
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Service;
-import ru.job4j.dreamjob.dto.FileDto;
-import ru.job4j.dreamjob.model.Candidate;
 import ru.job4j.dreamjob.model.User;
 import ru.job4j.dreamjob.repository.UserRepository;
 
-import java.util.Collection;
 import java.util.Optional;
 
 @ThreadSafe
